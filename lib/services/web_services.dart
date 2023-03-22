@@ -5,19 +5,19 @@ import 'package:http/http.dart' as client;
 import '../model/user.dart';
 
 class WebService {
-  final _BASE_URL = "newsdroid.hoolixyz.io";
-  final _exception_error = {
-    "status": false,
-    "message": "Error occured, sign up failed please try again!",
-  };
-  Map<String, dynamic> _server_error(message) => {
+  final _baseUrl = "newsdroid.hoolixyz.io";
+  // final _exceptionError = {
+  //   "status": false,
+  //   "message": "Error occured, sign up failed please try again!",
+  // };
+  Map<String, dynamic> _serverError(message) => {
         "status": false,
         "message": message,
       };
 
   Future<Map<String, dynamic>> signUpUser(User user) async {
     try {
-      var url = Uri.http(_BASE_URL, "/signup.php");
+      var url = Uri.http(_baseUrl, "/signup.php");
       var response = await client.post(
         url,
         body: {
@@ -37,18 +37,18 @@ class WebService {
           };
         }
 
-        return _server_error(jsonResponse['message']);
+        return _serverError(jsonResponse['message']);
       }
 
       throw (Exception("Something is not right, Please try again!"));
     } catch (e) {
-      return _server_error(e.toString());
+      return _serverError(e.toString());
     }
   }
 
   Future<Map<String, dynamic>> signInUser(String email, String password) async {
     try {
-      var url = Uri.http(_BASE_URL, "/signin.php");
+      var url = Uri.http(_baseUrl, "/signin.php");
       var response = await client.post(
         url,
         body: {
@@ -60,7 +60,7 @@ class WebService {
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
         if (!jsonResponse['loggedin']) {
-          return _server_error(jsonResponse['message']);
+          return _serverError(jsonResponse['message']);
         }
 
         return {
@@ -76,7 +76,7 @@ class WebService {
 
       throw (Exception("Something is not right, Please try again!"));
     } catch (e) {
-      return _server_error(e.toString());
+      return _serverError(e.toString());
     }
   }
 }
