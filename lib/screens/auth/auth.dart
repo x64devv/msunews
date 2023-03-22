@@ -51,7 +51,7 @@ class _AuthenticationState extends State<Authentication> {
           SizedBox(height: defaultSize * 2,),
           Center(
             child: Text(
-              "New New France24",
+              "MSU News Droid",
               style: TextStyle(
                   color: textColor,
                   fontSize: defaultSize * 3,
